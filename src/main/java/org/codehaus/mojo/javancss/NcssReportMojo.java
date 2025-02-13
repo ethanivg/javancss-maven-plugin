@@ -150,7 +150,7 @@ public class NcssReportMojo
             getLog().debug( "basedir: " + basedir );
             getLog().debug( "output: " + output );
         }
-        String relative = null;
+        String relative;
         if ( output.startsWith( basedir ) )
         {
             relative = output.substring( basedir.length() + 1 );
@@ -163,7 +163,7 @@ public class NcssReportMojo
             return;
         }
         getLog().debug( "relative: " + relative );
-        List<ModuleReport> reports = new ArrayList<ModuleReport>();
+        List<ModuleReport> reports = new ArrayList<>();
         for ( MavenProject child : reactorProjects )
         {
             File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
@@ -275,7 +275,7 @@ public class NcssReportMojo
 
     private boolean canGenerateAggregateReport()
     {
-        if ( project.getModules().size() == 0 )
+        if ( project.getModules().isEmpty() )
         {
             // no child modules
             return false;
