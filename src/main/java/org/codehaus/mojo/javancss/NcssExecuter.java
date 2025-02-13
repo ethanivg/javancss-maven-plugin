@@ -25,12 +25,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import javancss.Javancss;
 import javancss.parser.ParseException;
-
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.plexus.util.IOUtil;
 
 /**
  * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
@@ -147,15 +144,13 @@ public class NcssExecuter
                     sb.append( line );
                 }
             }
+              reader.close();
         }
         catch ( IOException ioe )
         {
             // cannot happen: in-memory StringReader
         }
-        finally
-        {
-            IOUtil.close( reader );
-        }
+        
         return sb.toString();
     }
 

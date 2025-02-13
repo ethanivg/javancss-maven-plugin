@@ -21,11 +21,11 @@ package org.codehaus.mojo.javancss;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import org.apache.maven.model.ReportPlugin;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -34,8 +34,8 @@ import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.PathTool;
-import org.codehaus.plexus.util.ReaderFactory;
 import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.xml.XmlStreamReader;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -235,7 +235,9 @@ public class NcssReportMojo
         try
         {
             SAXReader saxReader = new SAXReader();
-            return saxReader.read( ReaderFactory.newXmlReader( file ) );
+            try (Reader reader = new XmlStreamReader(file)) {
+                return saxReader.read(reader);
+            }
         }
         catch ( DocumentException de )
         {
