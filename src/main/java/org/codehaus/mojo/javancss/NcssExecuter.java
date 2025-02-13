@@ -127,9 +127,9 @@ public class NcssExecuter
 
     private String limit( String source, int lines )
     {
-        BufferedReader reader = new BufferedReader( new StringReader( source ) );
         StringBuilder sb = new StringBuilder();
-        try
+        
+        try(BufferedReader reader = new BufferedReader(new StringReader(source)))
         {
             for ( int i = 0; i < lines; i++ )
             {
@@ -144,7 +144,6 @@ public class NcssExecuter
                     sb.append( line );
                 }
             }
-              reader.close();
         }
         catch ( IOException ioe )
         {

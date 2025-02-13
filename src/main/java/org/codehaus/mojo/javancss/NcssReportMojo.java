@@ -235,7 +235,8 @@ public class NcssReportMojo
         try
         {
             SAXReader saxReader = new SAXReader();
-            try (Reader reader = new XmlStreamReader(file)) {
+            try (Reader reader = new XmlStreamReader(file)) 
+            {
                 return saxReader.read(reader);
             }
         }
